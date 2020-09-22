@@ -11,7 +11,7 @@ The dataset reveals that a small handful of microbial species (also called opera
 
 3. Create a bubble chart that displays each sample.
 
-  Use otu_ids for the x values, sample_values for the y values, sample_values for the marker size, otu_ids for the marker colors, and otu_labels for the text values.
+   Use otu_ids for the x values, sample_values for the y values, sample_values for the marker size, otu_ids for the marker colors, and otu_labels for the text values.
 
 4. Display the sample metadata, i.e., an individual's demographic information.
 
