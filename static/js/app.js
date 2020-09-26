@@ -5,13 +5,13 @@ d3.json("../samples.json").then(function(data) {
     data.names.forEach(function (name) {
         console.log(name);
     });
+    var selector = d3.select("selector")
     // populate the dropdown menu
     var sampleNames = data.names;
     sampleNames.forEach((name) => {
-      .select("selector")
-      .append("option")
-      .text(names)
-      .property("value", names);
+      selector.append("option")
+      selector.text(names)
+      selector.property("value", names);
 });
 });
 
