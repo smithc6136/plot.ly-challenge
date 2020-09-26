@@ -5,14 +5,26 @@ d3.json("../samples.json").then(function(data) {
     data.names.forEach(function (name) {
         console.log(name);
     });
+    var sampleNames = data.names;
+sampleNames.forEach((name) => {
+    selector
+      .append("option")
+      .text(names)
+      .property("value", names);
+});
 });
 
-// Initialize the page with a dropdown menu
-var option = document.createElement("option");
-option.text = "Text";
-option.value = "myvalue";
-var select = document.getElementById("daySelect");
-select.append(option);
+// var dropdown_list = document.getElementById("selDataset")
+// var names = []
+// // Initialize the page with a dropdown menu
+// for (var i=0; i < names.length; i++ ) {
+//   var option = document.createElement("option")
+//   option.text = names[i]
+//   option.value = names[i]
+//   var select = document.getElementById("selDataset")
+//   dropdown_list.append(option)}
+
+
 
 // Initialize the page with a default plot
 function init() {
@@ -42,25 +54,50 @@ function init() {
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
         // for loop to iterate through all "names" (data.names) to populate select options
     // Filter samples.json to get data associated with default
-        // Render the bar chart with data from the selected name (default value)
+        // Render the bar chart with data from the selected name (default value) 
         // Render bubble chart
         // render metadata (key value pair)
   // Respond to user input
-      // rerender bar chart, bubble chart, and metadata based on user selection
+      // rerender bar chart (15.2 Activity 8), bubble chart, and metadata based on user selection
 
 
 // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
+    // Top 10: if (bar_ids.length <= 10) {
+        // loop through OTU Data: for ...
+        // Append data: bar.push(values)
+        // }
     // Use sample_values as the values for the bar chart
     // Use otu_ids as the labels for the bar chart
     // Use otu_labels as the hovertext for the chart.
-// Reference: 15.1 Activity 2 AND 15.2 Activity 6 Part 2 (Horiz bar chart)
- // Organize and slice to get top 10 (from 15.2 06 sliceSort.js):
-    // // Sort the array in ascending order using an arrow function
-    // var sortedAscending = numArray.sort((a, b) => a - b);
-    // console.log(sortedAscending);
-    // // Slice the first five elements of the sortedAscending array, assign to a variable
-    // var sliced = sortedAscending.slice(0, 5);
-    // console.log(sliced);
+// Reference: 15.1 Activity 2 AND 15.2 Activity 6 Part 2 (Horiz bar chart) BELOW
+
+// // // Sort the data (how does it know to do this for each person??)
+// var sortedData = data.sort((a, b) => a.otu_ds - b.otu_ids);
+// console.log(sortedData);
+// // // Slice the first 10 objects for plotting
+// // slicedData = sortedData.slice(0, 10);
+// console.log(slicedData);
+
+// // // Reverse the array to accommodate Plotly's defaults - IS THIS NECESSARY?
+// // reversedData = slicedData.reverse();
+
+// // Trace1 
+// var trace1 = {
+//   x: slicedData.map(object => object.otu_ids),
+//   y: slicedData.map(object => object.otu_ids),
+//   text: slicedData.map(object => object.names),
+//   name: "Greek",
+//   type: "bar",
+//   orientation: "h"
+// };
+
+// // data
+// var data = [trace1];
+
+
+// // Render the plot to the div tag with id "plot"
+// Plotly.newPlot("plot", data, layout);
+
 
 
 // Define x and y axis but the info is in the json file we aren't typing it??
