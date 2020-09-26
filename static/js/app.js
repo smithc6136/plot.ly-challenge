@@ -9,6 +9,7 @@ d3.json("../samples.json").then(function(data) {
     // populate the dropdown menu
     var sampleNames = data.names;
     sampleNames.forEach((name) => {
+      .select("selector")
       selector.append("option")
       selector.text(names)
       selector.property("value", names);
