@@ -5,25 +5,15 @@ d3.json("../samples.json").then(function(data) {
     data.names.forEach(function (name) {
         console.log(name);
     });
+    // populate the dropdown menu
     var sampleNames = data.names;
-sampleNames.forEach((name) => {
-    selector
+    sampleNames.forEach((name) => {
+      .select("selector")
       .append("option")
       .text(names)
       .property("value", names);
 });
 });
-
-// var dropdown_list = document.getElementById("selDataset")
-// var names = []
-// // Initialize the page with a dropdown menu
-// for (var i=0; i < names.length; i++ ) {
-//   var option = document.createElement("option")
-//   option.text = names[i]
-//   option.value = names[i]
-//   var select = document.getElementById("selDataset")
-//   dropdown_list.append(option)}
-
 
 
 // Initialize the page with a default plot
