@@ -94,6 +94,7 @@ function barChart(sample) {
     // Define the plot layout
     var layout = {
         title: "Top Ten OTUs per Individual",
+        yaxis: { type: "category" },
         // xaxis: { title: "Frequency" },
         // yaxis: { title: "OTU" },
         margin: { t:30, l:150 }
