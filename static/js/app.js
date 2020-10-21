@@ -43,21 +43,24 @@ function buildCharts(id) {
     d3.json("../samples.json").then(function(data) {
         // this returns array of objects
         var samples = data.samples
+        var metaData = data.metadata
         // filter for id that matches sample
         var filteredData = samples.filter(sample => sample.id == id);
+        var filteredMetadata = metaData.filter(metadatum => metadatum.id == id);
         // console.log(filteredData[0].sample_values);
         barChart(filteredData[0]);
-        // bubbleChart(sample);
+        bubbleChart(filteredData[0]);
+        metadata(filteredMetadata[0]);
     });
 }
 
 function barChart(sample) {
-    var slicedData = sample.sample_values.slice(0, 10);
+    var slicedData = sample.sample_values.slice(0, 10).reverse();
     console.log("sliced data", slicedData);
     // const map1 = array1.map(x => x * 2);
-    var labels = sample.otu_ids.slice(0,10).map(label => `${label}`);
+    var labels = sample.otu_ids.slice(0,10).reverse().map(label => `${label}`);
     console.log("labels", labels);
-    var hoverText = sample.otu_labels.slice(0,10);
+    var hoverText = sample.otu_labels.slice(0,10).reverse();
     console.log("hover text", hoverText);
 
     // Trace1 
@@ -90,28 +93,28 @@ function barChart(sample) {
 //   // Use otu_labels for the text values.
 //   // DOCUMENTATION: https://plotly.com/javascript/bubble-charts/
 
-// function bubbleChart(sample) {
-//     var trace1 = {
-//         x: sample.otu_ids,
-//         y: sample_values,
-//         mode: 'markers',
-//         marker: {
-//         size: sample_values
-//         }
-//     }
-// };
+function bubbleChart(sample) {
+    var trace1 = {
+        x: sample.otu_ids,
+        y: sample.sample_values,
+        mode: 'markers',
+        marker: {
+            size: sample.sample_values
+        }
+    }
+
+    var data = [trace1];
   
-//     var data = [trace1];
+    var layout = {
+        title: 'Marker Size',
+        showlegend: false
+        // height: 600,
+        // width: 600
+    };
   
-//     var layout = {
-//         title: 'Marker Size',
-//         showlegend: false,
-//         height: 600,
-//         width: 600
-//     };
-  
-//   Plotly.newPlot('myDiv', data, layout);
-  
+  Plotly.newPlot('bubble', data, layout);
+}; 
+
 // 4. (WHAT)Display the sample metadata, i.e., an individual's demographic information.
     // Div in HTML: <div id="sample-metadata" class="panel-body"></div> 
 
@@ -120,17 +123,49 @@ function barChart(sample) {
     //     metadata=d3.keys(metadata);
     // }
 
-function metadata() {
+function metadata(sample) {
     var selector = d3.select("#sample-metadata");
-    d3.json("../samples.json").then(function(data) {
-        console.log(data);
-        data.names.forEach(function (name) {
-            console.log(name);
-        });
-    });
-}
-// 6. Update all of the plots any time that a new sample is selected.
-   // 15.2 Activity 9
+    // d3.json("../samples.json").then(function(data) {
+        console.log(sample);
+        // populate the menu
+        d3.selectAll(".metadata").remove();
+        for (const [key, value] of Object.entries(sample)) {
+            console.log(`${key}: ${value}`);
+            selector
+                .append("p")
+                .attr("class", "metadata")
+                .text(key+": "+value);
+        };
+        // data.names.forEach(function (name) {
+        //     console.log(name);
+        // });
+    // });
+};
 
+// 6. Update all of the plots any time that a new sample is selected.
+   // 15.2 Activity 9:
+// On change to the DOM, call getData()
+// d3.selectAll("#selDataset").on("change", getData);
+
+// Function called by DOM changes
+function optionChanged(id) {
+  // html code: <select id="selDataset" onchange="optionChanged(this.value)"></select>
+//   var dropdownMenu = d3.select("#selDataset");
+//   // Assign the value of the dropdown menu option to a variable
+//   var dataset = sampleNames.property("value");
+  // Initialize with a for loop - too many options to list each
+//   var name = [];
+//   // doesn't like this line >
+//   for (var i = 0; i < data.names.length; i++) {
+//     var name = names[i];
+// }
+  // Call function to update the chart
+  buildCharts(id);
+}
+
+// Update the restyled plot's values
+// function updatePlotly(newdata) {
+//   Plotly.restyle("bar", "values", [newdata]);
+// }
 
 init();
